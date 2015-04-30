@@ -1,0 +1,94 @@
+
+<html>
+    <head>
+		<script>
+			// Arkii: jsut call play when you need to :>
+			var volume = 0.2;
+						
+			var k_idx = 0;
+            var kills = 
+			[
+				new Audio("./KillingSpree.ogg"),
+				new Audio("./Rampage.ogg"),
+				new Audio("audio/banditkill1.mp3"),
+				new Audio("Unstoppable.ogg"),
+				new Audio("Godlike.ogg"),
+				new Audio("Warpath.ogg"),
+				new Audio("Massacre.ogg"),
+				new Audio("Eradication.ogg"),
+				new Audio("Extermination.ogg"),
+				new Audio("Unreal.ogg")
+			];
+			
+			var t_idx = 0;
+			var time = 
+			[
+				new Audio("DoubleKill.ogg"),
+				new Audio("MultiKill.ogg"),
+				new Audio("MegaKill.ogg"),
+				new Audio("UltraKill.ogg"),
+				new Audio("MonsterKill.ogg"),
+				new Audio("LudicrousKill.ogg"),
+				new Audio("HolyKill.ogg")
+			];
+		</script>
+    </head>
+    <body>
+        <script>
+            Red5Callbacks =
+            {
+                PlayKill: function(id)
+                {
+					if (id)
+					{
+						kills[id].volume = volume;
+						kills[id].play();
+					}
+					else
+					{
+						if (k_idx >= kills.length)
+							k_idx = 0;
+							
+						kills[k_idx].volume = volume;
+						kills[k_idx].play();
+						k_idx++;
+					}
+                },
+				PlayTime: function(id)
+                {
+					if (id)
+					{
+						time[id].volume = volume;
+						time[id].play();
+					}
+					else
+					{
+						if (t_idx >= kills.length)
+							t_idx = 0;
+							
+						time[t_idx].volume = volume;
+						time[t_idx].play();
+						t_idx++;
+					}
+                },
+				ResetKills: function()
+				{
+					k_idx = 0;
+				},
+				ResetTime: function()
+				{
+					t_idx = 0;
+				},
+				SetVolume: function(vol)
+				{
+					volume = vol;
+				}
+            };
+        </script>
+		<button onclick="Red5Callbacks.PlayKill();">Play Kill</button>
+		<button onclick="Red5Callbacks.PlayTime();">Play Time</button>
+		
+		<button onclick="Red5Callbacks.ResetKills();">Reset Kill</button>
+		<button onclick="Red5Callbacks.ResetTime();">Reset Time</button>
+    </body>
+</html>
